@@ -3,7 +3,6 @@
 	top: 0;
 	left: -9999px;
 	width: auto;
-	max-width: 420px;
 	background-color:    $optional;
 	background-image:    url('../images/btn-close-black.png');
 	background-position: calc(100% - .5rem) 1rem;
@@ -17,16 +16,46 @@
 	opacity: 0;
 	pointer-events: none;
 	cursor: pointer;
-	@include transform(translateX(-50%) translateY(-20px));
+	@include transform(translateY(-20px));
 	@include transition(transform .5s ease, opacity .5s ease);
 
+	&.active {
+		opacity: 1;
+		pointer-events: auto;
+		@include transform(translateY(0));
+	}
+
+	&.browserRender {
+		top: 35px;
+		left: 50%;
+		width: 420px;
+		margin-left: calc(-1.75rem - 210px);
+		@extend .pointer-btm-mid;
+	}
+
+	&.adblock {
+		top: 35px;
+		left: auto;
+		right: 35px;
+		width: 420px;
+		@extend .pointer-top-rgt;
+
+		strong {
+			display: inline-block;
+			padding: .25rem 1.5rem .25rem 0;
+			background: url('../images/adblock-icon.png') 100% 50% no-repeat;
+		}
+	}
+}
+
+.pointer-btm-mid {
 	&:before {
 		content: ' ';
 		position: absolute;
-		width: 0;
+		width:  0;
 		height: 0;
-		left: 50%;
 		top: 100%;
+		left: 50%;
 		border: 20px solid;
 		border-color: $medium-grey transparent transparent transparent;
 		@include transform(translateX(-20px));
@@ -35,18 +64,38 @@
 	&:after {
 		content: ' ';
 		position: absolute;
-		width: 0;
+		width:  0;
 		height: 0;
-		left: 50%;
 		top: 100%;
+		left: 50%;
 		border: 18px solid;
 		border-color: $optional transparent transparent transparent;
 		@include transform(translateX(-18px));
 	}
+}
 
-	&.active {
-		opacity: 1;
-		pointer-events: auto;
-		@include transform(translateX(-50%) translateY(0));
+.pointer-top-rgt {
+	&:before {
+		content: ' ';
+		position: absolute;
+		width:  0;
+		height: 0;
+		bottom: 100%;
+		right:  1rem;
+		border: 20px solid;
+		border-color: transparent transparent $medium-grey transparent;
+		@include transform(translateX(-16px));
+	}
+
+	&:after {
+		content: ' ';
+		position: absolute;
+		width:  0;
+		height: 0;
+		bottom: 100%;
+		right:  1rem;
+		border: 18px solid;
+		border-color: transparent transparent $optional transparent;
+		@include transform(translateX(-18px));
 	}
 }

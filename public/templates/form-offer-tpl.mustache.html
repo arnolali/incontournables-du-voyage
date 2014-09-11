@@ -59,7 +59,7 @@
 	<div class="row opt">
 		{{#filled.mention1}}
 		<div class="half field">
-			<span class="lbl">{{t.mention}} 1</span><br>
+			<span class="lbl">{{t.mention}} 1 <small class="msg">({{t.optional}})</small></span><br>
 			<label>
 				{{#filled.mention1.no0}}
 				<input type="radio" name="{{id}}_mention_1" value="" checked />
@@ -121,7 +121,7 @@
 		{{/filled.mention1}}
 		{{^filled.mention1}}
 		<div class="half field">
-			<span class="lbl">{{t.mention}} 1</span><br>
+			<span class="lbl">{{t.mention}} 1 <small class="msg">({{t.optional}})</small></span><br>
 			<label>
 				<input type="radio" name="{{id}}_mention_1" value="" checked /> 
 				<span class="radio-lbl">{{t.none}}</span>
@@ -154,7 +154,7 @@
 
 		{{#filled.mention2}}
 		<div class="half field">
-			<span class="lbl">{{t.mention}} 2</span><br>
+			<span class="lbl">{{t.mention}} 2 <small class="msg">({{t.optional}})</small></span><br>
 			<label>
 				{{#filled.mention2.no0}}
 				<input type="radio" name="{{id}}_mention_2" value="" checked />
@@ -216,7 +216,7 @@
 		{{/filled.mention2}}
 		{{^filled.mention2}}
 		<div class="half field">
-			<span class="lbl">{{t.mention}} 2</span><br>
+			<span class="lbl">{{t.mention}} 2 <small class="msg">({{t.optional}})</small></span><br>
 			<label>
 				<input type="radio" name="{{id}}_mention_2" value="" checked />
 				<span class="radio-lbl">{{t.none}}</span>
@@ -282,7 +282,7 @@
 	<div class="row video opt">
 		<div class="half field">
 			<label>
-				<span class="lbl">{{t.video}} <span class="msg">({{t.additionalChargesForVideos}})</span></span><br>
+				<span class="lbl">{{t.video}} <small class="msg">({{t.optional}})</small> <span class="msg">({{t.additionalChargesForVideos}})</span></span><br>
 				<div class="btn file">
 					<span class="text">{{t.uploadVideo}}</span>
 					<input type="hidden" name="pre-{{id}}_video">
@@ -310,7 +310,7 @@
 
 	<div class="row field opt">
 		<label>
-			<span class="lbl">{{t.legal}}</span><br>
+			<span class="lbl">{{t.legal}} <small class="msg">({{t.optional}})</small></span><br>
 			<textarea name="{{id}}_legal" class="textarea" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tincidunt risus ultricies diam tristique bibendum. Vestibulum lacinia vehicula auctor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis consectetur felis nec massa pretium pharetra.">{{filled.legal}}</textarea>
 		</label>
 	</div>

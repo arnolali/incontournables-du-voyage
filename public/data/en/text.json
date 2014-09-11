@@ -3,7 +3,6 @@
 	"adNo": "Ad #",
 	"addOffer": "Add an offer",
 	"adventures": "Adventures",
-	"browserPreviewWarning": "Please note that the ad generated is for tablet <em>(iOS / Android)</em>. Therefore, it is possible that under {{browser}} the preview does not match what is displayed on this medium. For greater reliability, we suggest you preview your ad in <a href='https://www.google.com/chrome/browser/' target='_blank'>Chrome</a> or <a href='http://support.apple.com/downloads/#safari' target='_blank'>Safari</a>.",
 	"cancel": "Cancel",
 	"cantAddOfferIfMoreThan1picture": "Can not add an offer if you have more than one picture",
 	"category": "Category",
@@ -65,6 +64,7 @@
 	"offers": "Offers",
 	"offersMaxReached": "Offer(s) maximum is reached",
 	"ok": "OK",	
+	"optional": "Optional",
 	"optionalFields": "Optional fields",
 	"packages": "Packages",
 	"perCapita": "per capita",
@@ -86,6 +86,11 @@
 	"uploadOtherImages": "Upload other images",
 	"uploadVideo": "Upload video",
 	"video": "Video",
+	"warning": {
+		"adblock": "Using the <strong>AdBlock</strong> extension could corrupt the generation of your ad. We strongly suggest you turn it off for this site.",
+		"adblockRender": "Using the <strong>AdBlock</strong> extension may be causing the problem. We strongly suggest you turn it off for this site.",
+		"browserPreview": "Please note that the ad generated is for tablet <em>(iOS / Android)</em>. Therefore, it is possible that under {{browser}} the preview does not match what is displayed on this medium. For greater reliability, we suggest you preview your ad in <a href='https://www.google.com/chrome/browser/' target='_blank'>Chrome</a> or <a href='http://support.apple.com/downloads/#safari' target='_blank'>Safari</a>."
+	},
 	"warningChange": "Please note that the change of ",
 	"webLink": "Web link",
 	"zipMac": "Your zip file could be automatically unzipped by Safari depending your settings (General tab, last option)."

@@ -6,6 +6,11 @@
 	$obj = new stdClass();
 	$obj->app = new stdClass();
 	$obj->app->culture = CULTURE;
+	if($obj->app->culture === "fr") {
+		$obj->app->cultureOff = "en";
+	} else {
+		$obj->app->cultureOff = "fr";
+	}
 
 	$isSafari = false;
 	if (strpos($_SERVER['HTTP_USER_AGENT'], 'Safari') && !strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome')) {

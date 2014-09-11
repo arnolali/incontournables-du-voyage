@@ -114,13 +114,14 @@ app.prototype.init_ = function(pObj) {
   var self = this;
 
   self.ad.id = uniqueId(); // Id / nom du dossier dans temp
-  self.form.adBlock = window.canRunAds === undefined ? true : false;
+  self.form.adblock = window.canRunAds === undefined ? true : false;
   self.dom.field.id.val( self.ad.id );
   $.extend( self.ad.settings, self.form.settings[self.ad.format.text] );
 
   self.initFieldsValidation_();
   self.initCustomRadios_();
   self.verticalAlign_($('.step.no1 .content'));
+  self.setAdblockTip_();
 };
 
 //=== BIND START =====================================================
@@ -257,7 +258,11 @@ app.prototype.bindEvents_ = function() {
   });
 
   self.dom.tip.on('click', function() {
-    self.dom.tip.removeClass('active');
+    self.hideTip_();
+  });
+
+  self.dom.tip.on('click', 'a', function(e) {
+    e.stopImmediatePropagation();
   });
 };
 
@@ -347,7 +352,8 @@ app.prototype.getUploadedAd_ = function(pInput) {
     }).done(function( folderId ) {
       self.initFormWithUploadAdSource_( folderId );
     }).fail(function( error ) {
-      var msg = self.text.errors.treatmentPhp + '<br><br>' + error;
+      var msg = self.text.errors.treatmentPhp;
+      msg += "<p>"+ jQuery.parseJSON( error ) + "</p>";
       self.setErrorPopup_( msg );
     });
 
@@ -706,11 +712,15 @@ app.prototype.setStep3_ = function() {
     self.writeGeneratedAdInIframePreview_( html );
     self.writeGeneratedAdInIframeForDownload_( html );
     setTimeout(function() {
-      self.setPreviewWarningAccordingToBrowser_();
+      self.setPreviewTipAccordingToBrowser_();
     }, 1000);
     self.goToStep_( 3 );
-  }).fail(function( data ) {
-    var msg = self.text.errors.renderAd + "<br>" + data;
+  }).fail(function( error ) {
+    var msg = self.text.errors.renderAd + "<br>" + error;
+    if(self.form.adblock) {
+      msg += "<p>"+ self.text.warning.adblockRender + "</p>";
+    }
+    msg += "<p>"+ jQuery.parseJSON( error ) + "</p>";
     self.setErrorPopup_( msg );
   })
 };
@@ -743,25 +753,39 @@ app.prototype.writeGeneratedAdInIframeForDownload_ = function( pAd ) {
   zipable.close();
 };
 
-app.prototype.setPreviewWarningAccordingToBrowser_ = function() {
+app.prototype.setPreviewTipAccordingToBrowser_ = function() {
   var self = this;
   if(self.form.browser !== "Chrome" && self.form.browser !== "Safari") {
-    var msg = self.text.browserPreviewWarning;
+    var msg = self.text.warning.browserPreview;
     msg = msg.replace("{{browser}}", self.form.browser);
     self.setTip_({
       msg: msg,
-      top:  "35px",
-      left: "50%"
+      class: "browserRender"
+    });
+  }
+};
+
+app.prototype.setAdblockTip_ = function() {
+  var self = this;
+  if(self.form.adblock) {
+    self.setTip_({
+      msg: self.text.warning.adblock,
+      class: "adblock"
     });
   }
 };
 
 app.prototype.setTip_ = function(pTip) {
   var self = this;
-  self.dom.tip.html( pTip.msg ).css({
-    'top':  pTip.top, 
-    'left': pTip.left
-  }).addClass( 'active' );
+  self.dom.tip.html( pTip.msg ).addClass( pTip.class + ' active' );
+};
+
+app.prototype.hideTip_ = function() {
+  var self = this;
+  self.dom.tip.removeClass('active');
+  setTimeout(function() {
+    self.dom.tip.delay(1000).attr('class', 'tip').html("");
+  }, 1000)
 };
 
 /*=== Update Video ==========================================*/

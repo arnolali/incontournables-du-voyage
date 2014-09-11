@@ -85,7 +85,6 @@ nav ul {
   font-weight: normal;
   font-style: normal;
 }
-
 @font-face {
   font-family: 'Rubrik_Medium';
   src: url("../fonts/rubrik/Rubrik_Light.eot");
@@ -93,7 +92,6 @@ nav ul {
   font-weight: normal;
   font-style: normal;
 }
-
 @font-face {
   font-family: 'Verlag_Book';
   src: url("../fonts/verlag/Verlag_Book.eot");
@@ -101,7 +99,6 @@ nav ul {
   font-weight: normal;
   font-style: normal;
 }
-
 @font-face {
   font-family: 'AmericanTypewriter';
   src: url("../fonts/americantype/ameritypmed-webfont.eot");
@@ -109,7 +106,6 @@ nav ul {
   font-weight: normal;
   font-style: normal;
 }
-
 @font-face {
   font-family: 'AmericanTypewriter-Bold';
   src: url("../fonts/americantype/ameritypbol-webfont.eot");
@@ -117,7 +113,6 @@ nav ul {
   font-weight: normal;
   font-style: normal;
 }
-
 *, *:before, *:after {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -140,7 +135,7 @@ body.lp-loaded {
 
 .lp-ad {
   position: relative;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: transparent;
   margin: 0 auto;
   overflow: hidden;
 }
@@ -212,7 +207,7 @@ body.lp-loaded {
   z-index: 0;
 }
 .back .gallery, .front .gallery {
-  background: rgba(0, 0, 0, 0);
+  background: transparent;
   z-index: 0;
 }
 .back .gallery .scroller, .front .gallery .scroller {

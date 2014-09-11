@@ -6,7 +6,6 @@
   font-weight: normal;
   font-style: normal;
 }
-
 @font-face {
   font-family: 'Rubrik_Medium';
   src: url("../fonts/rubrik/Rubrik_Light.eot");
@@ -14,7 +13,6 @@
   font-weight: normal;
   font-style: normal;
 }
-
 @font-face {
   font-family: 'Verlag_Book';
   src: url("../fonts/verlag/Verlag_Book.eot");
@@ -22,7 +20,6 @@
   font-weight: normal;
   font-style: normal;
 }
-
 @font-face {
   font-family: 'AmericanTypewriter';
   src: url("../fonts/americantype/ameritypmed-webfont.eot");
@@ -30,7 +27,6 @@
   font-weight: normal;
   font-style: normal;
 }
-
 @font-face {
   font-family: 'AmericanTypewriter-Bold';
   src: url("../fonts/americantype/ameritypbol-webfont.eot");
@@ -38,7 +34,6 @@
   font-weight: normal;
   font-style: normal;
 }
-
 /*------------------------------------*\
     #Normalize
 \*------------------------------------*/
@@ -730,7 +725,6 @@ nav ul {
   top: 0;
   left: -9999px;
   width: auto;
-  max-width: 420px;
   background-color: #ffefc6;
   background-image: url("../images/btn-close-black.png");
   background-position: calc(100% - .5rem) 1rem;
@@ -744,23 +738,50 @@ nav ul {
   opacity: 0;
   pointer-events: none;
   cursor: pointer;
-  -webkit-transform: translateX(-50%) translateY(-20px);
-  -moz-transform: translateX(-50%) translateY(-20px);
-  -ms-transform: translateX(-50%) translateY(-20px);
-  -o-transform: translateX(-50%) translateY(-20px);
-  transform: translateX(-50%) translateY(-20px);
+  -webkit-transform: translateY(-20px);
+  -moz-transform: translateY(-20px);
+  -ms-transform: translateY(-20px);
+  -o-transform: translateY(-20px);
+  transform: translateY(-20px);
   -webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
   -moz-transition: -moz-transform 0.5s ease, opacity 0.5s ease;
   -o-transition: -o-transform 0.5s ease, opacity 0.5s ease;
   transition: transform 0.5s ease, opacity 0.5s ease;
 }
-.tip:before {
+.tip.active {
+  opacity: 1;
+  pointer-events: auto;
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -ms-transform: translateY(0);
+  -o-transform: translateY(0);
+  transform: translateY(0);
+}
+.tip.browserRender {
+  top: 35px;
+  left: 50%;
+  width: 420px;
+  margin-left: calc(-1.75rem - 210px);
+}
+.tip.adblock {
+  top: 35px;
+  left: auto;
+  right: 35px;
+  width: 420px;
+}
+.tip.adblock strong {
+  display: inline-block;
+  padding: .25rem 1.5rem .25rem 0;
+  background: url("../images/adblock-icon.png") 100% 50% no-repeat;
+}
+
+.pointer-btm-mid:before, .tip.browserRender:before {
   content: ' ';
   position: absolute;
   width: 0;
   height: 0;
-  left: 50%;
   top: 100%;
+  left: 50%;
   border: 20px solid;
   border-color: #cccccc transparent transparent transparent;
   -webkit-transform: translateX(-20px);
@@ -769,13 +790,13 @@ nav ul {
   -o-transform: translateX(-20px);
   transform: translateX(-20px);
 }
-.tip:after {
+.pointer-btm-mid:after, .tip.browserRender:after {
   content: ' ';
   position: absolute;
   width: 0;
   height: 0;
-  left: 50%;
   top: 100%;
+  left: 50%;
   border: 18px solid;
   border-color: #ffefc6 transparent transparent transparent;
   -webkit-transform: translateX(-18px);
@@ -784,14 +805,36 @@ nav ul {
   -o-transform: translateX(-18px);
   transform: translateX(-18px);
 }
-.tip.active {
-  opacity: 1;
-  pointer-events: auto;
-  -webkit-transform: translateX(-50%) translateY(0);
-  -moz-transform: translateX(-50%) translateY(0);
-  -ms-transform: translateX(-50%) translateY(0);
-  -o-transform: translateX(-50%) translateY(0);
-  transform: translateX(-50%) translateY(0);
+
+.pointer-top-rgt:before, .tip.adblock:before {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  bottom: 100%;
+  right: 1rem;
+  border: 20px solid;
+  border-color: transparent transparent #cccccc transparent;
+  -webkit-transform: translateX(-16px);
+  -moz-transform: translateX(-16px);
+  -ms-transform: translateX(-16px);
+  -o-transform: translateX(-16px);
+  transform: translateX(-16px);
+}
+.pointer-top-rgt:after, .tip.adblock:after {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  bottom: 100%;
+  right: 1rem;
+  border: 18px solid;
+  border-color: transparent transparent #ffefc6 transparent;
+  -webkit-transform: translateX(-18px);
+  -moz-transform: translateX(-18px);
+  -ms-transform: translateX(-18px);
+  -o-transform: translateX(-18px);
+  transform: translateX(-18px);
 }
 
 html,

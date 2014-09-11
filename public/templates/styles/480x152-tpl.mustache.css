@@ -1,0 +1,174 @@
+.lp-offer {
+	background-position: 0 50%;
+	background-size: 328px auto;
+}
+{{#exist.date}}
+.lp-date,
+.lp-time {
+	font: normal normal 18px/18px AmericanTypewriter-Bold;
+	display: inline;
+}
+{{/exist.date}}
+{{#exist.gallery}}
+.lp-pager {
+	text-align: left;
+	bottom: 8px;
+	left:   309px;
+	width: 480px;
+}
+{{/exist.gallery}}
+/*--- Front ------------------------*/
+
+.lp-front .lp-summary {
+	width:  152px;
+	height: 100%;
+	padding: 9px 10px 6px 15px;
+	-webkit-transform: translate3d(328px,0,0);
+	-moz-transform: translate3d(328px,0,0);
+	-ms-transform: translate3d(328px,0,0);
+	transform: translate3d(328px,0,0);
+}
+
+.lp-front .lp-summary > div:nth-child(1) {
+	display: table-row;
+	vertical-align: top;
+}
+
+.lp-front .lp-summary > div:nth-child(2) {
+	display: table-cell;
+	vertical-align: bottom;
+}
+
+.lp-front .lp-logo {
+	max-width:  150px;
+	max-height: 45px;
+}
+
+.lp-front .lp-strapline {
+	font: normal normal 16px/16px AmericanTypewriter;
+	max-height: 32px;
+	margin: 0 0 4px 0;
+	overflow: hidden;
+}
+
+.lp-front .lp-title {
+	font: normal normal 18px/18px AmericanTypewriter-Bold;
+	max-height: 36px;
+	overflow: hidden;
+}
+
+{{#exist.picturesGallery}}
+.lp-gallery.lp-pictures {
+	width:  328px;
+	height: 100%;
+}
+.lp-pictures > .lp-scroller {
+	width: 656px;
+}
+.lp-front .lp-picture {
+	width:  328px;
+	height: 100%;
+}
+.lp-front .lp-pager.lp-pictures {
+	bottom: 8px;
+	left:   0;
+	text-align: center;
+	width: 328px;
+}
+
+.lp-front .lp-plus {
+	right: 5px;
+}
+{{/exist.picturesGallery}}
+{{^exist.picturesGallery}}
+.lp-front .lp-plus {
+	right: 157px;
+}
+{{/exist.picturesGallery}}
+{{#exist.price}}
+{{#exist.mentions}}
+.lp-front .lp-mentions {
+	font: normal normal 12px/14px AmericanTypewriter;
+}
+{{/exist.mentions}}
+.lp-front .lp-price {
+	font: normal normal 28px/20px AmericanTypewriter-Bold;
+}
+{{/exist.price}}
+/*--- Back -------------------------*/
+.lp-back .lp-summary { display: table; }
+
+.lp-back .lp-summary > div { vertical-align: bottom; }
+
+.lp-back .lp-summary > div:nth-child(1) {
+	display: table;
+	width: 310px;
+}
+
+.lp-back .lp-summary > div:nth-child(2) {
+	display: table-cell;
+	text-align: right;
+}
+
+.lp-back .lp-card {
+	width:  100%;
+	height: 104px;
+	padding: 15px 10px 0px 15px;
+}
+
+{{#exist.rating}}
+.lp-back .lp-rating {
+	float: none;
+	display: inline-block;
+	height: 13px;
+	background-image: url("public/images/star@2x.png");
+	margin: 0 0 0 10px;
+}
+
+.lp-back .lp-rating.lp-1-stars { width: 16px; }
+.lp-back .lp-rating.lp-2-stars { width: 32px; }
+.lp-back .lp-rating.lp-3-stars { width: 48px; }
+.lp-back .lp-rating.lp-4-stars { width: 64px; }
+.lp-back .lp-rating.lp-5-stars { width: 80px; }
+{{/exist.rating}}
+
+.lp-back .lp-logo {
+	bottom: 9px;
+	right:  58px;
+	width:  105px;
+	height: 32px;
+}
+
+.lp-back .lp-strapline {
+	display: inline-block;
+	font: normal normal 17px/19px AmericanTypewriter;
+	white-space: nowrap;
+}
+
+.lp-back .lp-strapline br, .lp-back .lp-title br { display: none; }
+
+.lp-back .lp-title {
+	font: normal normal 18px/18px AmericanTypewriter-Bold;
+	overflow: hidden;
+	white-space: nowrap;
+}
+{{#exist.price}}
+{{#exist.mentions}}
+.lp-back .lp-mentions { font: normal normal 12px/14px AmericanTypewriter; }
+{{/exist.mentions}}
+.lp-back .lp-price {
+	font: normal normal 28px/17px AmericanTypewriter-Bold;
+	padding: 0 0 3px 0;
+}
+{{/exist.price}}
+.lp-back .lp-description { font: normal normal 13px/16px AmericanTypewriter; }
+.lp-back .lp-description span {
+	-webkit-line-clamp: 2;
+	width: 370px;
+}
+{{#exist.gallery}}
+.lp-back .lp-pager {
+	left: 0;
+	text-align: center;
+}
+{{/exist.gallery}}

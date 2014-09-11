@@ -1,0 +1,11 @@
+{
+    "price": true,
+    "mention2": true,
+    "date": false,
+    "maxOffers": 2,
+    "picture": true,
+    "maxPictures": 2,
+    "maxOriginalPictures": 2,
+    "video": false,
+    "description": true
+}

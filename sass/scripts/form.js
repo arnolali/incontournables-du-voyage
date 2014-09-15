@@ -1037,7 +1037,7 @@ app.prototype.addMultiFiles_ = function(pInput) {
     }
 
     if(list.children().length < max) {
-      $.get(self.path.templates + 'file-preview-tpl.mustache.html', function(template, textStatus, jqXhr) {
+      $.get(self.path.templates + 'file-preview.mustache', function(template, textStatus, jqXhr) {
         var newKey = new Date().getTime();
 
         list.append(Mustache.render($(template).filter('#filePreviewTpl').html(), obj));

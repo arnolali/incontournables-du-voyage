@@ -46,12 +46,27 @@ class AdModel {
         $this->ad->w = intval(explode("x", $this->ad->meta->format)[0]);
         $this->ad->h = intval(explode("x", $this->ad->meta->format)[1]);
 
+        $this->imgs = new stdClass(); 
+        $this->imgs->counter = 0;
+        if($this->ad->w === 480 && $this->ad->h === 325) {
+            $this->imgs->w = 480;
+            $this->imgs->h = 230;
+        } elseif($this->ad->w === 480 && $this->ad->h === 152) {
+            $this->imgs->w = 328;
+            $this->imgs->h = 152;
+        } elseif($this->ad->w === 230 && $this->ad->h === 325) {
+            $this->imgs->w = 230;
+            $this->imgs->h = 197;
+        }
+
         $this->ad->url = new stdClass();
         $this->ad->url->root = URL;
         $this->ad->url->folder = 'temps/' . $this->ad->meta->id;
         $this->ad->url->assets = $this->ad->url->folder . '/assets/';
 
         $this->ad->assets = ['images/basic@2x.png', 'fonts/americantype/ameritypbol-webfont.eot', 'fonts/americantype/ameritypbol-webfont.svg', 'fonts/americantype/ameritypbol-webfont.ttf', 'fonts/americantype/ameritypbol-webfont.woff', 'fonts/americantype/ameritypmed-webfont.eot', 'fonts/americantype/ameritypmed-webfont.svg', 'fonts/americantype/ameritypmed-webfont.ttf', 'fonts/americantype/ameritypmed-webfont.woff', 'styles/fonts.css'];
+        $this->createFolder();
+
 
         $this->ad->logo = new stdClass();
         if(isset($_POST["pre-logo"]) && $_POST["pre-logo"] !== "") {
@@ -79,7 +94,8 @@ class AdModel {
         if(isset($_POST["pre-logo"]) && $_POST["pre-logo"] !== "") {
             
         } else {
-            array_push($this->ad->assets, $this->ad->logo);
+            move_uploaded_file($this->ad->logo->tmp, $this->ad->logo->path);
+            $this->resizeCropImg( $this->ad->url->assets, $this->ad->logo->name, $this->ad->logo->w, $this->ad->logo->h );
         }
         
         $id = explode(",", $_POST["offersId"]);
@@ -101,6 +117,8 @@ class AdModel {
         $this->ad->exist->offersGallery = $this->ad->offers->nbr > 1 ? true : false;
         $this->ad->exist->picturesGallery = false;
         $this->ad->exist->legal = false;
+
+        
 
         for($x=0; $x<$this->ad->offers->nbr; $x++) {
             $obj = new stdClass();
@@ -194,17 +212,22 @@ class AdModel {
                 $images = null;
             }
             
-            foreach($_FILES[$obj->id . '_picture']['tmp_name'] as $key => $tmp_name) {
-                $name = $_FILES[$obj->id . '_picture']['name'][$key];
-                if($name != '') {
+            foreach($_FILES[$obj->id . '_picture']['error'] as $key => $error) {
+                if ($error == UPLOAD_ERR_OK) {
+                    $this->imgs->counter++;
                     $img = new stdClass();
-                    $img->name = $name;
-                    $img->tmp = $_FILES[$obj->id . '_picture']['tmp_name'][$key];
-                    $img->path = $this->ad->url->assets . $name;
+                    $img->tmp  = $_FILES[$obj->id . '_picture']['tmp_name'][$key];
+                    $img->name = $_FILES[$obj->id . '_picture']['name'][$key];
+                    $img->ext = pathinfo($img->name, PATHINFO_EXTENSION);
+                    $img->name = "img" . $this->imgs->counter . ".jpg";
+                    $img->path = $this->ad->url->assets . $img->name;
+
+                    move_uploaded_file($img->tmp, $img->path);
+                    $this->resizeCropImg( $this->ad->url->assets, $img->name, $this->imgs->w, $this->imgs->h );
 
                     array_push($obj->gallery->pictures, $img);
-                    array_push($this->ad->assets, $img);
-                }
+                    //array_push($this->ad->assets, $img);
+                }    
             }
 
             for($i=0; $i<count($obj->gallery->pictures); $i++) {
@@ -273,8 +296,7 @@ class AdModel {
             $this->ad->exist->gallery = true;
             array_push($this->ad->assets, 'scripts/iscroll5.min.js');
         }
-        //print_r($this->ad);
-        $this->createFolder();
+
         if($this->ad->new) {
             $this->adAssets($this->ad->assets);
         }
@@ -295,7 +317,7 @@ class AdModel {
         $folder = 'temps/' . $this->ad->meta->id . "/assets/";
         for($x=0; $x<count($assets); $x++) {
             if(!move_uploaded_file($assets[$x]->tmp, $folder . $assets[$x]->name)) {
-                copy('public/' . $assets[$x], $folder . end(explode("/", $assets[$x])));
+                copy( 'public/' . $assets[$x], $folder . end( explode("/", $assets[$x]) ) );
             }
         }
     }
@@ -304,6 +326,39 @@ class AdModel {
          $folder = 'temps/' . $this->ad->meta->id . "/assets/";
          $obj = json_encode($this->ad);
          file_put_contents($folder . '/_source.json', $obj);
+    }
+
+    private function resizeCropImg( $pFolder, $pImg, $pW, $pH ) {
+        $im = new imagick();
+        $im->readImage($pFolder . $pImg);
+
+        $image = new stdClass();
+        $image->dimensions = $im->getImageGeometry();
+        $image->w = $image->dimensions['width'];
+        $image->h = $image->dimensions['height'];
+        $image->ratio = $image->w / $image->h;
+
+        if( ( $image->w / $pW ) < ( $image->h / $pH ) ) {
+            $h = ceil($pH * $image->w / $pW );
+            $y = ( ($image->h - ($pH * $image->w / $pW)) / 2 );
+            $im->cropImage( $image->w, $h, 0, $y );
+        } else {
+            $w = ceil( $pW * $image->h / $pH );
+            $x = ( ($image->w - ( $pW * $image->h / $pH)) / 2 );
+            $im->cropImage( $w, $image->h, $x, 0 );
+        }
+        $im->ThumbnailImage($pW, $pH, true);
+
+        if($img->type === "PNG") {
+            $im->setImageCompressionQuality(55);
+            $im->setImageFormat('png');
+        } elseif($img->type === "JPG" || $img->type === "JPEG") {
+            $im->setCompressionQuality(100);
+            $im->setImageFormat("jpg");
+        }
+
+        $im->writeImage($this->ad->url->folder .'/assets/'. $pImg); 
+        $im->destroy();
     }
 }
 ?>

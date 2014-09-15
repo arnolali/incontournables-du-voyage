@@ -523,23 +523,6 @@ nav ul {
   background: #232323;
   color: #fff;
 }
-.main-footer .legend {
-  position: relative;
-  float: left;
-  height: 100%;
-  line-height: 45px;
-  margin: 0 0 0 1rem;
-}
-.main-footer .legend .color {
-  display: inline-block;
-  position: relative;
-  width: 1rem;
-  height: 1rem;
-  border-radius: 50%;
-}
-.main-footer .legend .color.opt {
-  background: #ffefc6;
-}
 .main-footer .return {
   position: relative;
   float: right;
@@ -718,6 +701,41 @@ nav ul {
   padding: 1rem 1rem 1rem 3rem;
   border: solid 2px #fff;
   border-radius: 6px;
+}
+
+.processing {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  background-image: url("../images/traitement.png"), url("../images/loader.gif");
+  background-position: 50% calc(50% - 75px), 50% 50%;
+  background-repeat: no-repeat, no-repeat;
+  opacity: 0;
+  z-index: 100;
+  -webkit-transform: translateX(-100%);
+  -moz-transform: translateX(-100%);
+  -ms-transform: translateX(-100%);
+  -o-transform: translateX(-100%);
+  transform: translateX(-100%);
+  -webkit-transition: -webkit-transform 0 0.5s linear, opacity 0.5s ease;
+  -moz-transition: -moz-transform 0 0.5s linear, opacity 0.5s ease;
+  -o-transition: -o-transform 0 0.5s linear, opacity 0.5s ease;
+  transition: transform 0 0.5s linear, opacity 0.5s ease;
+}
+.processing.active {
+  opacity: 1;
+  -webkit-transform: translateX(0);
+  -moz-transform: translateX(0);
+  -ms-transform: translateX(0);
+  -o-transform: translateX(0);
+  transform: translateX(0);
+  -webkit-transition: -webkit-transform 0 linear, opacity 0.5s ease;
+  -moz-transition: -moz-transform 0 linear, opacity 0.5s ease;
+  -o-transition: -o-transform 0 linear, opacity 0.5s ease;
+  transition: transform 0 linear, opacity 0.5s ease;
 }
 
 .tip {

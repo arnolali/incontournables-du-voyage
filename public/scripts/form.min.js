@@ -39,7 +39,7 @@ app = function(pCulture, pRoot) {
   $.extend(self.ad = {}, self.defaultAd);
 
   $.when( //Télécharge tous les settings externes nécessaires
-    $.get( self.path.templates + 'form-offer-tpl.mustache.html', function(r) { self.ad.template = r; } ),
+    $.get( self.path.templates + 'form-offer.mustache', function(r) { self.ad.template = r; } ),
     $.getJSON( self.path.data + self.form.culture + "/text.json", function(r) { self.text = r; } ),
     $.getJSON( self.path.settings + "default.json", function(r) { self.form.settings.default = r; } ),
     $.getJSON( self.path.settings + "230x152.json", function(r) { self.form.settings['230x152'] = r; } ),
@@ -86,6 +86,7 @@ app.prototype.map_ = function() {
     popupError: $('.popup.error'),
     popupErrorText: $('.popup.error .text'),
     popupErrorClose: $('.popup.error .js-cancel'),
+    processing: $('.processing'),
     tip: $('.tip'),
     btn: {
       changeCancel: $('.popup.delete .js-cancel'),
@@ -140,16 +141,16 @@ app.prototype.bindEvents_ = function() {
   self.dom.goStep2.on('click', function() {
     if(self.form.step === 1) { // Si on est au Step 1
       if(self.validate_()) {  // Si le Step 1 est valid
-        if(self.ad.offers.length === 0) { // Si il n'y a encore aucune offre au Step 2
+        if(self.ad.offers.length === 0) {
           $.extend( self.ad, self.getStep1_() );
-          self.addOffer_(); // Créer une offre vide
+          self.addOffer_();
         }
-        self.goToStep_( 2 ); // Aller au Step 2
+        self.goToStep_( 2 );
       }
     } else if(self.form.step === 3) { // Si on est au Step 3
-      self.dom.field.iConfirm.attr('checked', false);  // Décoche la boite de confirmation
-      self.dom.downloadBtn.addClass('disabled'); // Désactive le bouton de téléchargement 
-      self.goToStep_( 2 ); // Aller au Step 2
+      self.dom.field.iConfirm.attr('checked', false);
+      self.dom.downloadBtn.addClass('disabled');
+      self.goToStep_( 2 );
     }
   });
 
@@ -521,7 +522,7 @@ app.prototype.addOffer_ = function(pOffer, pSpeed) {
   if(self.form.current.offersNbr < self.ad.settings.maxOffers && !self.ad.gallery) { // Si nous avons le droit d'ajouter une offre
     var prefilled = pOffer ? true : false;
     pOffer = pOffer ? pOffer : {}; // Si aucune offre n'est passée, en créer une vide
-    pOffer.id = pOffer.id ? pOffer.id : self.newOfferId_(); // Si aucun id n'est passée, en créer un
+    pOffer.id = self.newOfferId_();
     pOffer.settings = self.ad.settings; // Définir les settings des champs de l'offre
     pOffer.t = self.text; // Définir les textes selon la langue (ex: Surtitre / Strapline)
     pSpeed = pSpeed ? parseInt( pSpeed ) : 0; // Si aucune vitesse n'est passé, donner 0 comme valeur
@@ -701,6 +702,8 @@ app.prototype.setStep3_ = function() {
   var self = this;
   var data = new FormData(self.dom.f[0]);
 
+  self.dom.processing.addClass('active');
+
   $.ajax({
     type: "POST",
     url: self.path.root + 'ad.php',
@@ -716,12 +719,15 @@ app.prototype.setStep3_ = function() {
     }, 1000);
     self.goToStep_( 3 );
   }).fail(function( error ) {
-    var msg = self.text.errors.renderAd + "<br>" + error;
+    var msg = self.text.errors.renderAd;
     if(self.form.adblock) {
-      msg += "<p>"+ self.text.warning.adblockRender + "</p>";
+      msg += "<p>" + self.text.warning.adblockRender + "</p>";
     }
-    msg += "<p>"+ jQuery.parseJSON( error ) + "</p>";
+    msg += "<p>" + error.responseText + "</p>";
     self.setErrorPopup_( msg );
+    console.log(error);
+  }).always(function() {
+    self.dom.processing.removeClass('active');
   })
 };
 

@@ -15,14 +15,13 @@ class AdView {
 
     public function outputStyles() {
         ob_start();
-        $template = file_get_contents("public/templates/styles/offer-tpl.mustache.css");
+        $template = file_get_contents("public/templates/styles/ad.mustache.css");
         ?>
         <link rel="stylesheet" href="<?= $this->model->ad->url->assets ?>fonts.css" type="text/css">
         <style>
         <?php
         echo $this->m->render($template, $this->ad);
-        $t = file_get_contents("public/templates/styles/480x325-tpl.mustache.css");
-        $t = file_get_contents("public/templates/styles/". $this->model->ad->meta->format ."-tpl.mustache.css");
+        $t = file_get_contents("public/templates/styles/". $this->model->ad->meta->format .".mustache.css");
         echo $this->m->render($t, $this->ad);
         ?>
         </style>
@@ -33,7 +32,7 @@ class AdView {
      
     public function outputBody() {
     	ob_start();
-        $template = file_get_contents("public/templates/offer-tpl.mustache.html");
+        $template = file_get_contents("public/templates/ad.mustache");
         echo $this->m->render($template, $this->ad);
     	$html = ob_get_clean();
         return $html;
@@ -47,7 +46,7 @@ class AdView {
         <?php } ?>
         <script>
         <?php
-            $template = file_get_contents("public/templates/scripts/offer-tpl.mustache.js");
+            $template = file_get_contents("public/templates/scripts/ad.mustache.js");
             echo $this->m->render($template, $this->ad);
         ?>
         </script>

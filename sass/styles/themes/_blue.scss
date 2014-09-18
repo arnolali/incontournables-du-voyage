@@ -1,0 +1,19 @@
+.theme-blue {
+	.btn.action { 
+		background: $blue;
+		color: #fff;
+		border: solid 1px $blue;
+	}
+
+	.preview {
+		&.active {
+			border: solid 1px $blue;
+		}
+	}
+
+	.input {
+		&:focus {
+			border: solid 1px $blue;
+		}
+	}
+}

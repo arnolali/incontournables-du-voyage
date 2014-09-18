@@ -3,14 +3,14 @@
 	top: 0;
 	left: -9999px;
 	width: auto;
-	background-color:    $optional;
+	background-color:    #fff;
 	background-image:    url('../images/btn-close-black.png');
 	background-position: calc(100% - .5rem) 1rem;
 	background-repeat:   no-repeat;
 	background-size:     1.5rem 1.5rem;
 	font-size: .9rem;
-	border: solid 1px $medium-grey;
 	border-radius: $radius;
+	@include box-shadow(0 0 40px 0 #000);
 	padding: 1rem 2.5rem 1rem 1rem;
 	z-index: 5;
 	opacity: 0;
@@ -34,9 +34,9 @@
 	}
 
 	&.adblock {
-		top: 35px;
+		top: 20px;
 		left: auto;
-		right: 35px;
+		right: 6.2%;
 		width: 420px;
 		@extend .pointer-top-rgt;
 
@@ -69,24 +69,12 @@
 		top: 100%;
 		left: 50%;
 		border: 18px solid;
-		border-color: $optional transparent transparent transparent;
+		border-color: #fff transparent transparent transparent;
 		@include transform(translateX(-18px));
 	}
 }
 
 .pointer-top-rgt {
-	&:before {
-		content: ' ';
-		position: absolute;
-		width:  0;
-		height: 0;
-		bottom: 100%;
-		right:  1rem;
-		border: 20px solid;
-		border-color: transparent transparent $medium-grey transparent;
-		@include transform(translateX(-16px));
-	}
-
 	&:after {
 		content: ' ';
 		position: absolute;
@@ -95,7 +83,7 @@
 		bottom: 100%;
 		right:  1rem;
 		border: 18px solid;
-		border-color: transparent transparent $optional transparent;
+		border-color: transparent transparent #fff transparent;
 		@include transform(translateX(-18px));
 	}
 }

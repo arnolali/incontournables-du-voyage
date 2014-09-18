@@ -4,101 +4,64 @@
 
 .main-header {
 	position: fixed;
-	top:  0;
+	top:  1%;
 	left: 0;
 	width:  100%;
-	height: 45px;
-	background: $medium-black;
 	margin:  0;
 	padding: 0;
 	z-index: 1;
+}
 
-	.logo {
-		position: absolute;
-		top:  0;
-		left: 0;
-		background: $medium-black;
-		z-index: 5;
-		@include transition( (height .5s ease, border .5s ease) );
-	}
+.main-header__wrapper {
+	position: relative;
+	float: left;
+	width: 87.6%;
+	margin: 0 6.2%;
+}
 
-	.title {
-		position: absolute;
-		top:  0;
-		left: 0;
-		width:  400%;
-		height: 100%;
-		z-index: 0;
-		@include transition(left 1s ease);
+.main-header__logo {
+	position: relative;
+	float: left;
+	width: 9.3%;
+	z-index: 5;
+	@include transition( (height .5s ease, border .5s ease) );
 
-		h2 {
-			position: relative;
-			float: left;
-			width: 25%;
-			color: #fff;
-			font-size:   1.12rem;
-			font-weight: normal; 
-			text-align:  center;
-			text-transform: uppercase;
-			line-height: 45px;
-			margin:  0;
-			padding: 0;
-			pointer-events: none;
-		}
-	}
+	img { width: 100%; }
+}
 
-	.action {
-		position: relative;
-		float: right;
-		width:  40px;
-		height: 45px;
-		background-size:     24px auto;
-		background-repeat:   no-repeat;
-		background-position: 50% 50%;
+.main-header__nav {
+	display: table;
+	float: left;
+	left: 10.3%;
+	width: 89.7%;
+	font-size: 70%;
+	background-color: $dark-grey;
+	color: $light-grey;
+	font-family: Rubrik_Medium, Helvetica, Arial, sans-serif;
+	text-transform: uppercase;
+	margin: 0 0 0 1%;
+}
 
-		&.lang { background-image: url('../images/lang-en.png'); }
+.main-header__link {
+	display: table-cell;
+	position: relative;
+	height: 100%;
+	color: $light-grey;
+	text-align: center;
+	text-decoration: none;
+	padding: 2.4% 0 2.2% 0;
+	border-bottom: solid 3px transparent;
+	cursor: pointer;
 
-		.icon {
-			display: block;
-			position: absolute;
-			top:  0;
-			left: 0;
-			width:  100%;
-			height: 100%;
-			background-size:     inherit;
-			background-repeat:   inherit;
-			background-position: inherit;
-		}
-
-		&.import {
-			.icon { background-image: url('../images/import.png'); }
-			input {
-				display: block;
-				position: absolute;
-				top:  0;
-				left: 0;
-				width:  100%;
-				height: 100%;
-				opacity: 0;
-				cursor: pointer;
-			}
-		}
+	&:hover,
+	&.selected {
+		border-bottom: solid 3px rgba(255,255,255,0.9);
 	}
 }
 
-.no1 .main-header {
-	.logo {
-		height: 75px;
-		border: solid 10px $medium-black;
-	}
+.no0 .main-header__link.no0,
+.no1 .main-header__link.no1,
+.no2 .main-header__link.no2,
+.no3 .main-header__link.no3 {
+	border-bottom: solid 3px rgba(255,255,255,0.9);
 }
-
-.no2 .main-header,
-.no3 .main-header {
-	.logo {
-		height: 45px;
-		border: solid 0px $medium-black;
-	}
-}
-
-[lang="en"] .main-header .action.lang { background-image: url('../images/lang-fr.png'); }

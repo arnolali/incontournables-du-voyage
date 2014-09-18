@@ -2,74 +2,58 @@
     #Style guide
 \*------------------------------------*/
 
-$lp-red: #e80901;
-$lp-grey: #898788;
+html,
+body {
+	background: #fff;
+	overflow: hidden;
+}
 
-$bg-grey: #eaeaea;
+body {
+	font-size: 24px;
+	font-family: ReplicaLight, Helvetica, Arial, sans-serif;
+	font-weight: normal;
+	-webkit-font-smoothing: antialiased;
+}
 
-$medium-grey: #ccc;
-$dark-grey: #888;
+p {
+	margin: 1rem 0;
+}
 
-$medium-black: #232323;
+@media only screen and (max-width: 1400px) {
+	body {
+		font-size: 22px;
+	}
+}
 
-$valid-green: #0f7801;
-$focus: rgb(77, 144, 254);
+@media only screen and (max-width: 1280px) {
+	body {
+		font-size: 20px;
+	}
+}
 
-$optional: #ffefc6;
+@media only screen and (max-width: 1024px) {
+	body {
+		font-size: 17px;
+	}
+}
 
-$radius: 6px;
-
-$speed: .5s;
-
-//Galeries
-
-$gal-legal: #868889;
-$gal-grey: #333333;
-
-// Format 1/4 H
-$front-title-1-4H: normal normal 16px/18px AmericanTypewriter;
-$front-subtitle-1-4H: normal normal 23px/23px AmericanTypewriter-Bold;
-$front-mention-1-4H: normal normal 12px/12px AmericanTypewriter;
-$front-price-1-4H: normal normal 33px/29px AmericanTypewriter-Bold;
+@media only screen and (max-width: 800px) {
+	body {
+		font-size: 15.5px;
+	}
+}
 
 
-$back-title-1-4H: normal normal 17px/18px AmericanTypewriter;
-$back-subtitle-1-4H: normal normal 23px/23px AmericanTypewriter-Bold;
-$back-mention-1-4H: normal normal 12px/14px AmericanTypewriter;
-$back-price-1-4H: normal normal 33px/29px AmericanTypewriter-Bold;
-$back-infos-1-4H: normal normal 15px/20px AmericanTypewriter;
 
-// Format 1/8 H
-$front-title-1-8H: normal normal 17px/18px AmericanTypewriter;
-$front-subtitle-1-8H: normal normal 18px/19px AmericanTypewriter-Bold;
-$front-mention-1-8H: normal normal 12px/12px AmericanTypewriter;
-$front-price-1-8H: normal normal 28px/26px AmericanTypewriter-Bold;
+.table { display: table; }
+.table-cell { display: table-cell; }
 
-$back-title-1-8H: normal normal 17px/32px AmericanTypewriter;
-$back-subtitle-1-8H: normal normal 18px/10px AmericanTypewriter-Bold;
-$back-mention-1-8H: normal normal 12px/12px AmericanTypewriter;
-$back-price-1-8H: normal normal 28px/17px AmericanTypewriter-Bold;
-$back-infos-1-8H: normal normal 13px/16px AmericanTypewriter;
-					
-// Format 1/8 V
-$front-title-1-8V: normal normal 17px/18px AmericanTypewriter;
-$front-subtitle-1-8V: normal normal 18px/19px AmericanTypewriter-Bold;
-$front-mention-1-8V: normal normal 12px/12px AmericanTypewriter;
-$front-price-1-8V: normal normal 28px/26px AmericanTypewriter-Bold;
 
-$back-title-1-8V: normal normal 17px/18px AmericanTypewriter;
-$back-subtitle-1-8V: normal normal 18px/19px AmericanTypewriter-Bold;
-$back-mention-1-8V: normal normal 12px/14px AmericanTypewriter;
-$back-price-1-8V: normal normal 28px/20px AmericanTypewriter-Bold;
-$back-infos-1-8V: normal normal 14px/16px AmericanTypewriter;
 
-// Format 1/16 
-$front-title-1-16: normal normal 16px/16px AmericanTypewriter;
-$front-subtitle-1-16: normal normal 16px/19px AmericanTypewriter-Bold;
-$front-mention-1-16: normal normal 11px/11px AmericanTypewriter;
-$front-price-1-16: normal normal 24px/26px AmericanTypewriter-Bold;
+.grey {
+	background-color: $medium-grey;
+}
 
-$back-title-1-16: normal normal 16px/16px AmericanTypewriter;
-$back-subtitle-1-16: normal normal 16px/22px AmericanTypewriter-Bold;
-$back-mention-1-16: normal normal 11px/11px AmericanTypewriter;
-$back-price-1-16: normal normal 24px/15px AmericanTypewriter-Bold;
+.center {
+	text-align: center;
+}

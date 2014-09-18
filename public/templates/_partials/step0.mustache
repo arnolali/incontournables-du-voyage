@@ -1,0 +1,29 @@
+<!-- === Step 0 ================================================= -->
+<section class="step no0 theme-purple">
+	<div class="wrapper">
+		<img src="public/images/titles/step0-{{app.culture}}.png" class="wrapper__text">
+
+		<div class="section medium rgt white table">
+			<div class="half table-cell center grey">
+				<p>Glisser simplement une annonce sur cette page pour la&nbsp;modifier</p><p>ou</p>
+				<div class="btn">
+					<form method="post" action="{{path.libraries}}uploadZip.php" class="action import" title="{{text.importAd}}" enctype="multipart/form-data" autocomplete="off">
+						{{text.importAd}}
+						<input type="file" name="adzip" class="js-import-ad" />
+					</form>
+				</div>
+			</div>
+			<div class="half table-cell center">
+				<div class="btn action js-goStep1">{{text.createNewAd}}</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="ad-drop-zone">
+		<form method="post" action="{{path.libraries}}uploadZip.php" class="action import" title="{{text.importAd}}" enctype="multipart/form-data" autocomplete="off">
+			<input type="file" name="adzip" class="js-import-ad" />
+		</form>
+		<span class="ad-drop-zone__close">{{text.close}}</span>
+	</div>
+	
+</section>

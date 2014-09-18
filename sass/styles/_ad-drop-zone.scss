@@ -1,12 +1,17 @@
+body.no0 .ad-drop-zone {
+	display: block;
+}
 .ad-drop-zone {
+	display: none;
 	position: fixed;
 	top:  0;
 	left: 0;
 	width:  100%;
 	height: 100%;
-	background-color:    rgba(0,0,0,.75);
+	background-color:    rgba(153,88,161,.75);
 	background-image:    url('../images/upload-fr.png');
 	background-position: 50% 50%;
+	background-size: 20% auto;
 	background-repeat:   no-repeat;
 	opacity: 0;
 	z-index: 100;
@@ -22,12 +27,13 @@
 	> form {
 		display: block;
 		position: absolute;
-		top:  5%;
-		left: 5%;
-		width:  90%;
-		height: 90%;
+		top:  8.2%;
+		left: 6.2%;
+		width:  87.6%;
+		height: 83.6%;
+		@include box-sizing(border-box);
 		border: dotted 5px #fff;
-		border-radius: 1rem;
+		border-radius: $radius;
 	}
 
 	input {

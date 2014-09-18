@@ -1,0 +1,23 @@
+.theme-green {
+	.btn.action { 
+		background: $green;
+		color: #fff;
+		border: solid 1px $green;
+	}
+
+	.preview {
+		&.active {
+			border: solid 1px $green;
+		}
+	}
+
+	.input {
+		&:focus {
+			border: solid 1px $green;
+		}
+	}
+
+	.delete-offer a {
+		color: $green;
+	}
+}

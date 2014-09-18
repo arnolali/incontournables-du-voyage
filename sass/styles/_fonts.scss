@@ -1,6 +1,16 @@
 /* _fonts.scss */
 
 @font-face {
+    font-family:'ReplicaLight';
+    src: url('../fonts/replica/LaPresseBrand_Light.eot');
+    src: url('../fonts/replica/LaPresseBrand_Light.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/replica/LaPresseBrand_Light.woff') format('truetype'), 
+         url('../fonts/replica/LaPresseBrand_Light.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
     font-family: 'Rubrik_ExtraLight';
     src: url('../fonts/rubrik/Rubrik_ExtraLight.eot');
     src: url('../fonts/rubrik/Rubrik_ExtraLight.eot?#iefix') format('embedded-opentype'),

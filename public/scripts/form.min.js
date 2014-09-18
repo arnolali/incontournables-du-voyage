@@ -72,9 +72,9 @@ app.prototype.map_ = function() {
     goStep2: $('.js-goStep2'),
     goStep3: $('.js-goStep3'),
     offersNbr: $('[name="offersNbr"]'),
-    addOfferBtn: $('.addOffer'),
-    addOfferMsg: $('.addOfferMsg'),
-    offersList: $('.offersList'),
+    addOfferBtn: $('.js-add-offer'),
+    addOfferMsg: $('.add-offer-msg'),
+    offersList: $('.offers-list'),
     render: $('iframe.render'),
     zipable: $('iframe.zipable'),
     downloadBtn: $('.js-download'),
@@ -103,7 +103,7 @@ app.prototype.map_ = function() {
       logoPreview: $('.field.logo .preview'),
       offersNbr: $('[name=offersNbr]'),
       date: $('[name="date"]'),
-      formatRadio: $(".row.format input"),
+      formatRadio: $(".format input"),
       format: $('[name="format"]'),
       iConfirm: $('[name="iConfirm"]')
     }
@@ -240,7 +240,6 @@ app.prototype.bindEvents_ = function() {
 
   self.dom.import.on('change', function() {
     self.getUploadedAd_($(this));
-    self.dom.adDropZone.removeClass('active');
   });
 
   $(document).on('dragover', function(e) {
@@ -277,10 +276,10 @@ app.prototype.initCustomRadios_ = function() {
       var value = radio.val();
       if(radio.attr( 'checked' )) { // radio button is checked onload
           radio.hide();
-          radio.after( $("<img src='" + self.path.images + "formats/" + value + ".png' class='radio valid' />") );
+          radio.after( $("<img src='" + self.path.images + "formats/" + value + ".svg' class='radio valid' />") );
       } else { // radio button is not checked
           radio.hide();
-          radio.after( $("<img src='" + self.path.images + "formats/" + value + ".png' class='radio'  />") );
+          radio.after( $("<img src='" + self.path.images + "formats/" + value + ".svg' class='radio'  />") );
       }
   });
 };
@@ -302,7 +301,7 @@ app.prototype.initFieldsValidation_ = function() {
   self.form.validator = self.dom.f.validate({
     debug: true,
     errorPlacement: function(error, element) {
-      error.appendTo(element.closest('.field').find('.lbl'));
+      error.appendTo( element.closest('.field').find('.lbl') );
     },
     highlight: function(element, errorClass, validClass) {
       $(element).closest('.field').addClass('error').removeClass('valid');
@@ -339,6 +338,8 @@ app.prototype.initFieldsValidation_ = function() {
 app.prototype.getUploadedAd_ = function(pInput) {
   var self = this;
   var form = pInput.closest('.import');
+
+  self.dom.adDropZone.removeClass('active');
 
   if(!inputContainImg( pInput )) { // Si un zip est uploadé et non une image
     var formData = new FormData(form[0]);
@@ -686,14 +687,13 @@ app.prototype.updateOffer_ = function(pId) {
 /*=== Update Offers List ===================================*/
 app.prototype.updateOffersList_ = function() {
   var self = this;
-  var content = self.dom.step2.find('.content');
 
   if(self.form.current.offersNbr > 1) {
     if(self.dom.b.width() > 1020) {
-      content.addClass('extend');
+      self.dom.offersList.addClass('extend');
     }
   } else {
-    content.removeClass('extend');
+    self.dom.offersList.removeClass('extend');
   }
 };
 
@@ -905,7 +905,7 @@ app.prototype.cancelChange_ = function() {
 app.prototype.goToStep_ = function(pStep) {
   var self = this;
   self.form.step = pStep;
-  self.dom.b.removeClass('no1 no2 no3').addClass('no' + self.form.step);
+  self.dom.b.removeClass('no0 no1 no2 no3').addClass('no' + self.form.step);
 };
 
 /*=== Validate ===========================================*/
@@ -960,7 +960,7 @@ app.prototype.initMultiFiles_ = function(pInput) {
     var btn = pInput.closest('.btn');
     var txt = btn.children('.text');
     for(var x=0; x<preImgs.length; x++) {
-      ol.append('<li><span class="preview" style="background-image: url(\'' + self.path.root + 'temps/' + self.ad.id +'/assets/'+ preImgs[x] +'\')"></span><a href="#" class="js-erease" data-id="'+ preImgs[x] +'">X</a></li>');
+      ol.append('<li><span class="preview" style="background-image: url(\'' + self.path.root + 'temps/' + self.ad.id +'/assets/'+ preImgs[x] +'\')"></span><a href="#" class="js-erease" data-id="'+ preImgs[x] +'"></a></li>');
     }
     var max = parseInt(btn.data('max'));
     if(ol.children().length < max) {
@@ -1184,7 +1184,7 @@ app.prototype.verticalAlign_ = function(pElem) {
   var self = this;
   var h = pElem.children('fieldset').height();
   var browserH = self.dom.steps.height();
-  var posY = ( browserH - h - 100 ) / 2;
+  var posY = ( browserH - h - 200 ) / 2;
   pElem.css('top', posY + 'px');
 };
 

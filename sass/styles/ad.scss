@@ -1,6 +1,6 @@
 @import '_mixins';
 @import '_normalize';
-@import '_style-guide';
+@import '_global';
 @import '_fonts';
 
 *, *:before, *:after { @include box-sizing(border-box); }

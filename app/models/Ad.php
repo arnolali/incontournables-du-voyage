@@ -70,15 +70,15 @@ class AdModel {
 
         $this->ad->logo = new stdClass();
         if(isset($_POST["pre-logo"]) && $_POST["pre-logo"] !== "") {
-            $this->ad->logo->tmp = $_POST["pre-logo"];
+            $this->ad->logo->tmp =  $_POST["pre-logo"];
             $this->ad->logo->dflt = $_POST["pre-logo"];
             list($this->ad->logo->w, $this->ad->logo->h) = getimagesize($this->ad->url->assets . $_POST["pre-logo"]);
         } else {
-            $this->ad->logo->tmp = $_FILES['logo']['tmp_name'];
+            $this->ad->logo->tmp =  $_FILES['logo']['tmp_name'];
             $this->ad->logo->dflt = $_FILES['logo']['name'];
             list($this->ad->logo->w, $this->ad->logo->h) = getimagesize($this->ad->logo->tmp);
         }
-        $this->ad->logo->ext = end(explode(".", $this->ad->logo->dflt));
+        $this->ad->logo->ext =  end(explode(".", $this->ad->logo->dflt));
         $this->ad->logo->name = 'logo.' . $this->ad->logo->ext;
         $this->ad->logo->path = $this->ad->url->assets . $this->ad->logo->name;
         if($this->ad->logo->w > $settings->{'f' . $this->ad->meta->format}->logo->w) { 

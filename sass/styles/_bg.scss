@@ -1,0 +1,28 @@
+.bg {
+	position: absolute;
+	top:  0;
+	left: 0;
+	width:  100%;
+	height: 100%;
+	opacity: 0;
+	@include transition(opacity 1s linear);
+
+	&.no0 { background-color: #e0c9e5; }
+	&.no1 { background-color: #cadbe5; }
+	&.no2 { background-color: #d0e4c9; }
+	&.no3 { background-color: #f5e295; }
+
+	&.gradient {
+		background-image: url(../images/gradient.png);
+		background-repeat: repeat-y;
+		opacity: 1;
+	}
+}
+
+.no0 .bg.no0,
+.no1 .bg.no1,
+.no2 .bg.no2,
+.no3 .bg.no3 {
+	opacity: 1;
+}
+

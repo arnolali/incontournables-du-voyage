@@ -18,30 +18,24 @@
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 </head>
-<body class="no1">
+<body class="no0">
+	<div class="bg no0"></div>
+	<div class="bg no1"></div>
+	<div class="bg no2"></div>
+	<div class="bg no3"></div>
+	<div class="bg gradient"></div>
 	{{>header}}
-
-	<form method="post" action="ad.php" enctype="multipart/form-data" autocomplete="off" class="js-form form">
-		<input type="hidden" name="id" />
-		<input type="hidden" name="offersId" />
-		<div class="steps">
+	<div class="steps">
+		{{>step0}}
+		<form method="post" action="ad.php" enctype="multipart/form-data" autocomplete="off" class="js-form form">
+			<input type="hidden" name="id" />
+			<input type="hidden" name="offersId" />
 			{{>step1}}
 			{{>step2}}
 			{{>step3}}
-		</div>
-	</form>
-
-	<footer class="main-footer">
-		<a href="{{text.creationKitLink}}" class="return">{{text.returnToTheCreationKit}}</a>
-	</footer>
-
-	<div class="ad-drop-zone">
-		<form method="post" action="{{path.libraries}}uploadZip.php" class="action import" title="{{text.importAd}}" enctype="multipart/form-data" autocomplete="off">
-			<input type="file" name="adzip" class="js-import-ad" />
 		</form>
-		<span class="ad-drop-zone__close">{{text.close}}</span>
 	</div>
-
+	
 	<div class="processing"></div>
 
 	<div class="tip"></div>

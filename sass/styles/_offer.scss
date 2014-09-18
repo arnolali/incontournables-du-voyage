@@ -1,0 +1,90 @@
+.offers-list {
+	position: relative;
+	float: right;
+	width: 50%;
+
+	&.extend {
+		width: 100%;
+
+		.offer {
+			width: 50%;
+
+			.delete-offer {
+				pointer-events: auto;
+				opacity: 1;
+			}
+		}
+
+
+	}
+
+	.offer {
+		position: relative;
+		float: left;
+		width: 100%;
+		margin: 0 0 1% 0;
+		background: #fff;
+		@include box-sizing(border-box);
+		margin: 0 0 1rem 0;
+		padding: 0;
+		opacity: 0;
+		@include transform(translateY(-20px));
+		@include transition(opacity $speed ease, transform $speed ease);
+
+		&:nth-child(4n+2), &:nth-child(4n+3) {
+			background-color: $medium-grey;
+
+			legend { background-color: $medium-grey; }
+		}
+
+		&.created {
+			opacity: 1;
+			@include transform(translateY(0));
+		}
+
+		&:only-child {
+			@include transition(none 0 linear);
+		}
+
+		legend {
+			position: relative;
+			top:  -1rem;
+			left: 0;
+			width: 18.6%;
+			background: #fff;
+			font-size: 1.5rem;
+			text-transform: uppercase;
+			@include box-sizing(border-box);
+			margin:  0;
+			padding: .5rem 1rem;
+		}
+
+		.delete-offer {
+			position: absolute;
+			left: 100%;
+			font-size: 1rem;
+			width: 15rem;
+			text-transform: none;
+			margin: 0 1rem;
+			pointer-events: none;
+			opacity: 0;
+			@include transition(opacity $speed ease);
+
+			a {
+				text-decoration: none;
+			}
+		}
+	}
+}
+
+.controles {
+	text-align: right;
+	line-height: 3rem;
+	padding: 1rem 0;
+
+	.add-offer-msg {
+		display: inline-block;
+		font-size: 80%;
+		margin: 0 1rem 0 0;
+	}
+}

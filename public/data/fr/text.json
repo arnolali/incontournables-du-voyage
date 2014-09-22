@@ -92,7 +92,10 @@
 	"warning": {
 		"adblock": "L'utilisation de l'extension <strong>AdBlock</strong> pourrait corrompre la génération de votre annonce. Nous vous suggérons fortement de la désactiver pour ce site.",
 		"adblockRender": "L'utilisation de l'extension <strong>AdBlock</strong> est peut-être à l'origine de ce problème. Nous vous suggérons fortement de la désactiver pour ce site.",
-		"browserPreview": "Veuillez prendre note que la publicité est générée pour être affichée sur tablette <em>(iOS / Android)</em>. Dès lors, il est possible que sous {{browser}} l'aperçu ne corresponde pas à ce qui sera affiché sur ce média. Pour une plus grande fiabilité, nous vous suggérons de prévisualiser votre annonce dans les navigateurs <a href='https://www.google.fr/chrome/browser/' target='_blank'>Chrome</a> ou <a href='http://support.apple.com/fr_FR/downloads/#safari' target='_blank'>Safari</a>."
+		"browserPreview": "Veuillez prendre note que la publicité est générée pour être affichée sur tablette <em>(iOS / Android)</em>. Dès lors, il est possible que sous {{browser}} l'aperçu ne corresponde pas à ce qui sera affiché sur ce média. Pour une plus grande fiabilité, nous vous suggérons de prévisualiser votre annonce dans les navigateurs <a href='https://www.google.fr/chrome/browser/' target='_blank'>Chrome</a> ou <a href='http://support.apple.com/fr_FR/downloads/#safari' target='_blank'>Safari</a>.",
+		"createBeforePreview": "Vous devez d'abord créer ou importer une annonce avant de pouvoir visualiser son aperçu.",
+		"generalDataBeforeOffers": "Vous devez remplir les données générales de l'annonce avant de pouvoir créez vos offres.",
+		"offerBeforePreview": "Vous devez ajouter au moins une offre avant de pouvoir visualiser l'aperçu de votre annonce."
 	},
 	"warningChange": "Veuillez prendre note que le changement de ",
 	"webLink": "Lien web",

@@ -146,13 +146,14 @@
 	{{#settings.video}}
 	<div class="row video opt">
 		<div class="half field">
-			<label>
-				<label class="lbl">{{t.video}} <small class="msg">({{t.optional}})</small> <span class="msg">({{t.additionalChargesForVideos}})</span></label><br>
-				<div class="btn file">
-					<span class="text">{{t.uploadVideo}}</span>
-					<input type="hidden" name="pre-{{id}}_video">
-					<input type="file" accept="video/*" capture="camera" name="{{id}}_video" />
-				</div>
+			<label class="lbl">{{t.video}} <small class="msg">({{t.optional}})</small> <span class="msg">({{t.additionalChargesForVideos}})</span></label>
+			{{#filled.videos.length}}
+			<input type="hidden" name="pre-{{id}}_video" value="{{filled.video}}">
+			{{/filled.videos.length}}
+			<div class="btn file">
+				<span class="text">{{t.uploadVideo}}</span>
+				<input type="hidden" name="pre-{{id}}_video">
+				<input type="file" accept="video/*" capture="camera" name="{{id}}_video" />
 			</div>
 		</div>
 		<ol class="files-list hide">

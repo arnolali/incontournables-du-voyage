@@ -5,3 +5,15 @@
 		border: solid 1px $purple;
 	}
 }
+
+body.no0 {
+	.popup {
+		background-color: rgba(153,88,161,.75);
+
+		.btn.action {
+			background-color: $purple;
+			color: #fff;
+			border: solid 1px $purple;
+		}
+	}
+}

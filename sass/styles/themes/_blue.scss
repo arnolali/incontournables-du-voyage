@@ -17,3 +17,15 @@
 		}
 	}
 }
+
+body.no1 {
+	.popup {
+		background-color: rgba(87,114,163,.75);
+
+		.btn.action {
+			background-color: $blue;
+			color: #fff;
+			border: solid 1px $blue;
+		}
+	}
+}

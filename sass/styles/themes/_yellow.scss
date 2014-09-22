@@ -5,3 +5,15 @@
 		border: solid 1px $yellow;
 	}
 }
+
+body.no3 {
+	.popup {
+		background-color: rgba(233,181,0,.65);
+
+		.btn.action {
+			background-color: $yellow;
+			color: #fff;
+			border: solid 1px $yellow;
+		}
+	}
+}

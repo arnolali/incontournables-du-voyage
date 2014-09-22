@@ -92,7 +92,10 @@
 	"warning": {
 		"adblock": "Using the <strong>AdBlock</strong> extension could corrupt the generation of your ad. We strongly suggest you turn it off for this site.",
 		"adblockRender": "Using the <strong>AdBlock</strong> extension may be causing the problem. We strongly suggest you turn it off for this site.",
-		"browserPreview": "Please note that the ad generated is for tablet <em>(iOS / Android)</em>. Therefore, it is possible that under {{browser}} the preview does not match what is displayed on this medium. For greater reliability, we suggest you preview your ad in <a href='https://www.google.com/chrome/browser/' target='_blank'>Chrome</a> or <a href='http://support.apple.com/downloads/#safari' target='_blank'>Safari</a>."
+		"browserPreview": "Please note that the ad generated is for tablet <em>(iOS / Android)</em>. Therefore, it is possible that under {{browser}} the preview does not match what is displayed on this medium. For greater reliability, we suggest you preview your ad in <a href='https://www.google.com/chrome/browser/' target='_blank'>Chrome</a> or <a href='http://support.apple.com/downloads/#safari' target='_blank'>Safari</a>.",
+		"createBeforePreview": "You must first create or import an ad prior the preview previsualization.",
+		"generalDataBeforeOffers": "You must fill the general data of your ad before adding any offers.",
+		"offerBeforePreview": "You must add at least one offer before you can see the preview of your ad."
 	},
 	"warningChange": "Please note that the change of ",
 	"webLink": "Web link",

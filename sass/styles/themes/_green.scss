@@ -21,3 +21,15 @@
 		color: $green;
 	}
 }
+
+body.no2 {
+	.popup {
+		background-color: rgba(88,161,110,.75);
+
+		.btn.action {
+			background-color: $green;
+			color: #fff;
+			border: solid 1px $green;
+		}
+	}
+}

@@ -15,7 +15,7 @@ app = function(pCulture, pRoot) {
   }
 
   self.form = {
-    step: 1,
+    step: 0,
     culture: pCulture,
     browser: detectBrowser()[0],
     settings: {}, // Contiens tous les settings possibles (default, 480x325, etc)
@@ -65,9 +65,11 @@ app.prototype.map_ = function() {
     adDropZoneClose: $('.ad-drop-zone__close'),
     f: $('.js-form'),
     steps: $('.steps'),
+    step0: $('.step.no0'),
     step1: $('.step.no1'),
     step2: $('.step.no2'),
     step3: $('.step.no3'),
+    goStep0: $('.js-goStep0'),
     goStep1: $('.js-goStep1'),
     goStep2: $('.js-goStep2'),
     goStep3: $('.js-goStep3'),
@@ -119,9 +121,13 @@ app.prototype.init_ = function(pObj) {
   self.dom.field.id.val( self.ad.id );
   $.extend( self.ad.settings, self.form.settings[self.ad.format.text] );
 
+  if(self.form.browser === "Safari") {
+    $('body').addClass('isSafari');
+  }
+
   self.initFieldsValidation_();
   self.initCustomRadios_();
-  self.verticalAlign_($('.step.no1 .content'));
+  self.verticalAlign_( $('.step.no1 .content') );
   self.setAdblockTip_();
 };
 
@@ -131,39 +137,31 @@ app.prototype.bindEvents_ = function() {
 
   self.dom.addOfferBtn.on('click', function(e) {
     e.preventDefault();
-    self.addOffer_({}, 500) // Ajoute une offre vide avec une animation de .5s
+    self.addOffer_( {}, 500 ) // Ajoute une offre vide avec une animation de .5s
+  });
+
+  self.dom.goStep0.on('click', function() {
+    self.goToStep_( 0 );
   });
 
   self.dom.goStep1.on('click', function() {
-    self.goToStep_(1);
+    self.goToStep_( 1 );
   });
 
   self.dom.goStep2.on('click', function() {
-    if(self.form.step === 1) { // Si on est au Step 1
-      if(self.validate_()) {  // Si le Step 1 est valid
-        if(self.ad.offers.length === 0) {
-          $.extend( self.ad, self.getStep1_() );
-          self.addOffer_();
-        }
-        self.goToStep_( 2 );
-      }
-    } else if(self.form.step === 3) { // Si on est au Step 3
-      self.dom.field.iConfirm.attr('checked', false);
-      self.dom.downloadBtn.addClass('disabled');
-      self.goToStep_( 2 );
-    }
+    self.goToStep2_();
   });
 
   self.dom.goStep3.on('click', function() {
-    if(self.validate_()) { self.setStep3_(); };
+    self.goToStep3_();
   });
 
   self.dom.step1.on('click', '.radio', function() {
-    self.updateFormat_($(this).prev().val());
+    self.updateFormat_( $(this).prev().val() );
   });
 
   self.dom.field.category.on('change', function() {
-    self.updateCategory_($(this).val());
+    self.updateCategory_( $(this).val() );
   });
 
   self.dom.steps.on('focus', '[name$="_freetext"]', function() {
@@ -171,17 +169,15 @@ app.prototype.bindEvents_ = function() {
   });
 
   self.dom.steps.on('change', '.file-input', function() {
-     self.updateInputFilePreview_($(this));
+     self.updateInputFilePreview_( $(this) );
   });
 
   self.dom.steps.on('click', '.file-input', function() {
-    $(this).wrap( "<form id='hiddenForm' style='display:none'></div>" );
-    $('#hiddenForm')[0].reset();
-    $(this).unwrap( "<form id='hiddenForm'></div>" );
+    resetFormElement( $(this) );
   });
 
   self.dom.steps.on('change', '.multi-files input', function() {
-    self.addMultiFiles_($(this));
+    self.addMultiFiles_( $(this) );
   });
 
   self.dom.steps.on('click', '.js-erease', function() {
@@ -189,11 +185,11 @@ app.prototype.bindEvents_ = function() {
   });
 
   self.dom.steps.on('change', '.video input', function() {
-    self.updateVideo_($(this));
+    self.updateVideo_( $(this) );
   });
 
   self.dom.steps.on('click', '.js-erease-video', function() {
-    self.deleteVideo_($(this).closest('.row').find('input'));
+    self.deleteVideo_( $(this).closest('.row').find('input') );
   });
 
   self.dom.steps.on('click', '.delete-offer a', function(e) {
@@ -231,7 +227,7 @@ app.prototype.bindEvents_ = function() {
   }); 
 
   self.dom.steps.on('keyup', '[maxlength]', function(e) {
-    self.updateFieldLength_($(this));
+    self.updateFieldLength_( $(this) );
   });
 
   self.dom.popupErrorClose.on('click', function() {
@@ -239,14 +235,11 @@ app.prototype.bindEvents_ = function() {
   });
 
   self.dom.import.on('change', function() {
-    self.getUploadedAd_($(this));
+    self.getUploadedAd_( $(this) );
   });
 
   $(document).on('dragover', function(e) {
-    var dt = e.originalEvent.dataTransfer;
-    if(dt.types != null && (dt.types.indexOf ? dt.types.indexOf('Files') != -1 : dt.types.contains('application/x-moz-file'))) {
-      self.dom.adDropZone.addClass('active');
-    }
+    self.showAdDropZone_(e);
   });
 
   $(document).on('dragleave', function(e) {
@@ -265,6 +258,7 @@ app.prototype.bindEvents_ = function() {
     e.stopImmediatePropagation();
   });
 };
+
 
 /*=== Init Custom Radio ==========================================*/
 app.prototype.initCustomRadios_ = function() {
@@ -390,9 +384,10 @@ app.prototype.setStep1_ = function(pData) {
   self.dom.field.noClient.val( pData.meta.noClient );
   self.dom.field.noAd.val( pData.meta.noAd );
   self.dom.field.category.val( pData.meta.category );
+  self.updateFormat_( pData.meta.format );
   /*--- Logo ---*/
   self.dom.field.preLogo.val( pData.logo.name );
-  self.dom.field.logo.closest( '.half' ).addClass( 'valid' ).removeClass( 'js-validate' );
+  self.dom.field.logo.removeClass( 'js-validate' ).closest( '.half' ).addClass( 'valid' );
   $('.field.logo').addClass( 'valid' );
   self.dom.field.logoPreview.addClass( 'active' ).css( 'background-image', 'url("' + pData.folder + '/assets/' + pData.logo.name + '")' );
   self.dom.field.offersNbr.val( pData.offers.nbr );
@@ -468,11 +463,8 @@ app.prototype.convertOffersFormSourceToObj_ = function(pOffers) {
     for(var y=0; y<offer.gallery.pictures.length; y++) {
       obj.pictures.push(offer.gallery.pictures[y].name);
     }
-    obj.videos = [];
-    if(offer.videos) {
-      for(var y=0; y<offer.videos.length; y++) {
-        obj.videos.push(offer.videos[y].name);
-      }
+    if(offer.video) {
+      obj.video = offer.video.name;
     }
 
     offers.push(obj);
@@ -542,6 +534,65 @@ app.prototype.addOffer_ = function(pOffer, pSpeed) {
       offer.addClass('created');
       self.updateOfferFieldsLength_(offer);
     }, pSpeed)
+  }
+};
+
+/*=== Go to Step 2 ==========================================*/
+app.prototype.goToStep2_ = function() {
+  var self = this;
+
+  if(self.form.step === 0) { // Step 0
+    self.setTip_({
+      msg: self.text.warning.generalDataBeforeOffers,
+      class: "generalDataBeforeOffers"
+    });
+    self.goToStep_( 1 );
+  } else if(self.form.step === 1) { // Step 1
+    if(self.validateStep_()) {  // Si le Step 1 est valid
+      if(self.ad.offers.length === 0) {
+        $.extend( self.ad, self.getStep1_() );
+        self.addOffer_();
+      }
+      self.goToStep_( 2 );
+    }
+  } else if(self.form.step === 3) { // Step 3
+    self.dom.field.iConfirm.attr('checked', false);
+    self.dom.downloadBtn.addClass('disabled');
+    self.goToStep_( 2 );
+  }
+};
+
+/*=== Go to Step 3 ==========================================*/
+app.prototype.goToStep3_ = function() {
+  var self = this;
+
+  if(self.form.step === 0) { // Step 0
+    self.setTip_({
+      msg: self.text.warning.createBeforePreview,
+      class: "createBeforePreview"
+    });
+  } else if(self.form.step === 1) { // Step 1
+    if(self.validateStep_()) {
+      if(self.ad.offers.length > 0) {
+        if(self.validateStep_( 2 )) {
+          self.setStep3_(); 
+        }
+      } else {
+        $.extend( self.ad, self.getStep1_() );
+        self.addOffer_();
+
+        self.setTip_({
+          msg: self.text.warning.offerBeforePreview,
+          class: "offerBeforePreview"
+        });
+
+        self.goToStep_( 2 );
+      }
+    }
+  } else if(self.form.step === 2) { // Step 2
+    if(self.validateStep_()) { 
+      self.setStep3_(); 
+    };
   }
 };
 
@@ -909,12 +960,12 @@ app.prototype.goToStep_ = function(pStep) {
 };
 
 /*=== Validate ===========================================*/
-app.prototype.validate_ = function() {
+app.prototype.validateStep_ = function(pStep) {
   var self = this;
-  var currentStep = $('.step.no' + self.form.step);
+  var step = pStep ? $('.step.no' + pStep) : $('.step.no' + self.form.step);
   var valid = true;
 
-  $('.js-validate', currentStep).each(function(i, v) {
+  $('.js-validate', step).each(function(i, v) {
     valid = self.form.validator.element(v) && valid;
   });
 
@@ -1186,6 +1237,16 @@ app.prototype.verticalAlign_ = function(pElem) {
   var browserH = self.dom.steps.height();
   var posY = ( browserH - h - 200 ) / 2;
   pElem.css('top', posY + 'px');
+};
+
+/*=== Show Drop Zone ==========================================*/
+app.prototype.showAdDropZone_ = function(pEvent) {
+  var self = this;
+
+  var dt = pEvent.originalEvent.dataTransfer;
+  if(dt.types != null && (dt.types.indexOf ? dt.types.indexOf('Files') != -1 : dt.types.contains('application/x-moz-file'))) {
+    self.dom.adDropZone.addClass('active');
+  }
 };
 
 /*=== Fermer la zone de drop publicitaire =========================*/

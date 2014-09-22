@@ -34,8 +34,8 @@
 	}
 
 	&.adblock {
-		top: 20px;
-		left: auto;
+		top:   20px;
+		left:  auto;
 		right: 6.2%;
 		width: 420px;
 		@extend .pointer-top-rgt;
@@ -46,21 +46,49 @@
 			background: url('../images/adblock-icon.png') 100% 50% no-repeat;
 		}
 	}
+
+	&.generalDataBeforeOffers {
+		top: 5rem;
+		left: 52%;
+		width: 420px;
+		margin-left: calc(-1.75rem - 210px);
+		@extend .pointer-top-mid;
+	}
+
+	&.offerBeforePreview {
+		top: 5rem;
+		left: 65.5%;
+		width: 420px;
+		margin-left: calc(-1.75rem - 210px);
+		@extend .pointer-top-mid;
+	}
+
+	&.createBeforePreview {
+		top: 5rem;
+		left: 43%;
+		width: 420px;
+		margin-left: calc(-1.75rem - 210px);
+		@extend .pointer-top-mid;
+	}
+}
+
+.isSafari .tip {
+	&.adblock {
+		top:   20px;
+		right: auto;
+		left:  6.2%;
+		width: 420px;
+		@extend .pointer-top-left ;
+
+		strong {
+			display: inline-block;
+			padding: .25rem 1.5rem .25rem 0;
+			background: url('../images/adblock-icon.png') 100% 50% no-repeat;
+		}
+	}
 }
 
 .pointer-btm-mid {
-	&:before {
-		content: ' ';
-		position: absolute;
-		width:  0;
-		height: 0;
-		top: 100%;
-		left: 50%;
-		border: 20px solid;
-		border-color: $medium-grey transparent transparent transparent;
-		@include transform(translateX(-20px));
-	}
-
 	&:after {
 		content: ' ';
 		position: absolute;
@@ -71,6 +99,19 @@
 		border: 18px solid;
 		border-color: #fff transparent transparent transparent;
 		@include transform(translateX(-18px));
+	}
+}
+
+.pointer-top-left {
+	&:after {
+		content: ' ';
+		position: absolute;
+		width:  0;
+		height: 0;
+		bottom: 100%;
+		left:  1.5rem;
+		border: 18px solid;
+		border-color: transparent transparent #fff transparent;
 	}
 }
 
@@ -87,3 +128,18 @@
 		@include transform(translateX(-18px));
 	}
 }
+
+.pointer-top-mid {
+	&:after {
+		content: ' ';
+		position: absolute;
+		width:  0;
+		height: 0;
+		bottom: 100%;
+		left:  50%;
+		border: 18px solid;
+		border-color: transparent transparent #fff transparent;
+		@include transform(translateX(-18px));
+	}
+}
+

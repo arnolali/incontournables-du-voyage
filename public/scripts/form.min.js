@@ -520,6 +520,8 @@ app.prototype.addOffer_ = function(pOffer, pSpeed) {
     pOffer.t = self.text; // Définir les textes selon la langue (ex: Surtitre / Strapline)
     pSpeed = pSpeed ? parseInt( pSpeed ) : 0; // Si aucune vitesse n'est passé, donner 0 comme valeur
 
+    console.log(pOffer);
+
     var html = Mustache.render( self.ad.template, pOffer );
     self.dom.offersList.append( html );
     
@@ -608,10 +610,11 @@ app.prototype.newOfferId_ = function() {
 app.prototype.initOffer_ = function(pOffer) {
   var self = this;
 
-  self.initMultiFiles_($('input[name="'+ pOffer.id +'_picture[]"]'));
+  self.initMultiFiles_( $('input[name="'+ pOffer.id +'_picture[]"]') );
   self.updateMultifiles_();
   self.updateAddOfferBtn_();
   self.updateOffersList_();
+  self.updateVideo_( $('input[name="'+ pOffer.id +'_picture[]"]') );
 
   self.setOfferValidation_(self.ad, pOffer);
   self.updateOffer_(pOffer.id);
@@ -850,11 +853,19 @@ app.prototype.updateVideo_ = function(pInput) {
   var self = this;
   var row = pInput.closest('.row');
   var files = row.find('.files-list');
+  var hidden = row.find('input[type="hidden"]');
+
   pInput.blur();
-  if(pInput.val() == '') {
+  if(pInput.val() === '') {
     files.addClass('hide');
+    if(hidden && hidden.val() !== '') {
+      files.removeClass('hide');
+    }
   } else {
     files.removeClass('hide');
+    if(hidden) {
+      hidden.val("");
+    }
   }
 };
 
@@ -863,7 +874,10 @@ app.prototype.deleteVideo_ = function(pInput) {
   var self = this;
   var row = pInput.closest('.row');
   var files = row.find('.files-list');
+  var hidden = row.find('input[type="hidden"]');
+
   resetFormElement(pInput);
+  hidden.val("");
   files.addClass('hide');
   row.find('.field').removeClass('valid');
   pInput.blur();

@@ -226,7 +226,6 @@ class AdModel {
                     $this->resizeCropImg( $this->ad->url->assets, $img->name, $this->imgs->w, $this->imgs->h );
 
                     array_push($obj->gallery->pictures, $img);
-                    //array_push($this->ad->assets, $img);
                 }    
             }
 
@@ -242,29 +241,25 @@ class AdModel {
             }
             /* Video */
             $preVideo = $_POST["pre-" . $obj->id . "_video"];
-            $videoName = '';
-            if(isset($preVideo) && $preVideo !== "") {
+            $video = $_FILES[$obj->id . '_video'];
+            if( ( isset($preVideo) &&  $preVideo !== "") || ( isset($video) && $video['size'] !== 0 ) ) {
                 $obj->video = new stdClass();
-                $videoName = $_POST["pre-" . $obj->id . "_video"];
-            } else if(isset($_FILES[$obj->id . '_video'])) {
-                $obj->video = new stdClass();
-                $videoName = $_FILES[$obj->id . '_video']['name'];
+                $obj->video->exist = true;
+                $this->ad->exist->video = true;
+
+                if( isset( $preVideo ) ) {
+                    $obj->video->name = $_POST["pre-" . $obj->id . "_video"];
+                    $obj->video->path = $this->ad->url->assets . $obj->video->name;
+                    $obj->video->ext =  end(explode(".", $obj->video->name));
+                } else if( isset( $video ) ) {
+                    $obj->video->name = $video['name'];
+                    $obj->video->tmp =  $video['tmp_name'];
+                    $obj->video->path = $this->ad->url->assets . $obj->video->name;
+                    $obj->video->ext =  end(explode(".", $obj->video->name));
+                    array_push($this->ad->assets, $obj->video);
+                }
             }
             
-            $obj->video->exist = $videoName === '' ? false : true;
-            if($obj->video->exist) {
-                $this->ad->exist->video = true;
-                $obj->video->path = $this->ad->url->assets . $videoName;
-                $obj->video->name = $videoName;
-                if(isset($_POST["pre-" . $obj->id . "_video"])) {
-                    $obj->video->tmp = $videoName;
-                } else {
-                    $obj->video->tmp = $_FILES[$obj->id . '_video']['tmp_name'];
-                }
-                $obj->video->tmp = $_FILES[$obj->id . '_video']['tmp_name'];
-                $obj->video->ext = end(explode(".", $obj->video->name));
-                array_push($this->ad->assets, $obj->video);
-            }
             /* Description */
             $description = nl2br($_POST[$obj->id . "_description"]);
             $description = strip_tags($description, '<br>');

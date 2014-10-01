@@ -368,6 +368,8 @@ app.prototype.initFormWithUploadAdSource_ = function(pFolder) {
     data.meta.id = self.ad.id;
     self.setStep1_( data );
     $.extend( self.ad, self.getStep1_() );
+    self.convertSettings_();
+    console.log(self.ad);
     self.convertOffersFormSourceToObj_( data.offers.list );
     self.setStep2_();
     self.setStep3_();
@@ -410,7 +412,6 @@ app.prototype.getStep1_ = function() {
 
 /*=== Convert Offers ==========================================*/
 app.prototype.convertOffersFormSourceToObj_ = function(pOffers) {
-  console.log(pOffers);
   var self = this;
   var offers = [];
 
@@ -487,7 +488,12 @@ app.prototype.convertFormat_ = function(pFormat) {
 /*=== Convert Settings ==========================================*/
 app.prototype.convertSettings_ = function(pDefault, pFormat) {
   var self = this;
-  var settings = $.extend({}, pDefault, pFormat);
+  var settings = self.ad.settings;
+
+  if(pDefault && pFormat) {
+    settings = $.extend({}, pDefault, pFormat);
+  }
+  
   if(self.ad.category === "conferences") {
     settings.price = false;
     settings.date = true;
